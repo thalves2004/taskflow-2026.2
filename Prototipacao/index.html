@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TaskFlow | Gerenciador de tarefas</title>
+<style>
+:root{--bg:#f4f6fb;--surface:#fff;--ink:#172033;--muted:#758098;--line:#e7eaf1;--primary:#5b5ce2;--primary-dark:#4748c7;--soft:#eeeeff;--green:#16845b;--amber:#b7791f;--red:#c2414b;--shadow:0 14px 38px rgba(30,42,80,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,textarea,select{font:inherit}button{cursor:pointer;border:0}.hidden{display:none!important}
+.auth-wrap{min-height:100vh;display:grid;grid-template-columns:1.05fr .95fr;background:#fff}
+.brand-panel{padding:64px clamp(28px,7vw,100px);background:linear-gradient(145deg,#282a70,#5b5ce2 65%,#8586f5);color:white;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.brand-panel:after{content:"";position:absolute;width:440px;height:440px;border:1px solid #ffffff25;border-radius:50%;right:-170px;bottom:-180px;box-shadow:0 0 0 45px #ffffff0b,0 0 0 95px #ffffff08}
+.logo{font-size:22px;font-weight:800;letter-spacing:-.6px}.logo span{color:#a9aaff}.brand-copy{max-width:510px;position:relative;z-index:1}.brand-copy h1{font-size:clamp(34px,4vw,54px);line-height:1.08;letter-spacing:-1.8px;margin:0 0 20px}.brand-copy p{color:#e0e1ff;font-size:17px;max-width:440px}.brand-foot{font-size:12px;color:#d3d4ff;position:relative;z-index:1}
+.auth-side{display:flex;align-items:center;justify-content:center;padding:40px 24px}.auth-card{width:min(420px,100%)}.auth-card h2{font-size:29px;letter-spacing:-.8px;margin:0 0 7px}.sub{color:var(--muted);margin:0 0 28px}.field{margin:0 0 17px}.field label{display:block;font-weight:650;font-size:13px;margin-bottom:7px}.field input,.field textarea,.field select,.search{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 13px;background:#fff;color:var(--ink);outline:none;transition:.2s}.field input:focus,.field textarea:focus,.field select:focus,.search:focus{border-color:var(--primary);box-shadow:0 0 0 3px #5b5ce21a}.field textarea{min-height:88px;resize:vertical}.btn{border-radius:10px;padding:11px 16px;font-weight:700;transition:.2s}.btn-primary{background:var(--primary);color:white}.btn-primary:hover{background:var(--primary-dark)}.btn-outline{background:#fff;border:1px solid var(--line);color:var(--ink)}.btn-soft{background:var(--soft);color:var(--primary)}.btn-block{width:100%;margin-top:5px}.switch{text-align:center;color:var(--muted);margin-top:22px;font-size:14px}.link{color:var(--primary);font-weight:700;background:none;padding:0}.note{font-size:12px;color:var(--muted);margin-top:16px}
+.app{min-height:100vh}.topbar{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,5vw,72px);position:sticky;top:0;z-index:5}.topbar .logo{color:var(--ink)}.top-actions{display:flex;align-items:center;gap:14px}.avatar{width:36px;height:36px;border-radius:50%;background:#e9e9ff;color:var(--primary);display:grid;place-items:center;font-weight:800}.user-chip{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:650}.layout{max-width:1180px;margin:0 auto;padding:38px 24px 70px}.welcome{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:28px}.eyebrow{color:var(--primary);font-weight:800;text-transform:uppercase;letter-spacing:1.3px;font-size:11px}.welcome h1{font-size:30px;letter-spacing:-1px;margin:4px 0}.welcome p{color:var(--muted);margin:0}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}.stat,.panel{background:var(--surface);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow)}.stat{padding:19px 21px}.stat-label{font-size:13px;color:var(--muted);font-weight:600}.stat-number{font-size:29px;font-weight:800;letter-spacing:-1px;margin-top:4px}.stat-foot{font-size:12px;color:var(--muted)}.panel{padding:22px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:17px}.panel-head h2{font-size:17px;margin:0}.toolbar{display:flex;gap:10px;align-items:center}.search{width:230px;padding:9px 12px;font-size:13px}.task-list{display:grid;gap:10px}.task{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:12px;padding:14px 15px}.task-main{flex:1;min-width:0}.task-title{font-weight:750}.task-desc{color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.task-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.pill{padding:4px 9px;border-radius:99px;font-size:11px;font-weight:750;background:#f1f3f8;color:#5f6b82}.pill.todo{background:#eef1ff;color:#5155c8}.pill.progress{background:#fff5df;color:#a66b0a}.pill.done{background:#e7f7ef;color:#16845b}.pill.high{background:#fff0f0;color:#c2414b}.pill.medium{background:#fff5df;color:#a66b0a}.pill.low{background:#e7f7ef;color:#16845b}.icon-btn{background:#f5f6fa;color:#69748a;border-radius:8px;width:34px;height:34px;font-size:17px}.empty{padding:36px 16px;text-align:center;color:var(--muted)}.form-panel{max-width:700px;margin:0 auto}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.form-grid .full{grid-column:1/-1}.back{background:none;color:var(--muted);font-weight:700;padding:0;margin-bottom:18px}.back:hover{color:var(--primary)}.toast{position:fixed;bottom:24px;right:24px;background:#18213a;color:#fff;padding:13px 18px;border-radius:11px;box-shadow:var(--shadow);z-index:10;font-size:14px}
+@media(max-width:760px){.auth-wrap{grid-template-columns:1fr}.brand-panel{display:none}.stats{grid-template-columns:1fr}.welcome{flex-direction:column}.toolbar{width:100%;flex-wrap:wrap}.search{width:100%}.panel-head{align-items:flex-start;flex-direction:column}.task{align-items:flex-start}.task-meta{margin-top:7px}.form-grid{grid-template-columns:1fr}.form-grid .full{grid-column:auto}.topbar{padding:0 18px}.layout{padding:26px 16px}}
+</style>
+</head>
+<body>
+<section id="auth" class="auth-wrap">
+  <div class="brand-panel">
+    <div class="logo">Task<span>Flow</span></div>
+    <div class="brand-copy"><h1>Organize suas tarefas. Simplifique sua rotina.</h1><p>Um espaço simples para planejar atividades, acompanhar prazos e manter tudo em andamento.</p></div>
+    <div class="brand-foot">Protótipo acadêmico • Projeto TaskFlow</div>
+  </div>
+  <div class="auth-side">
+    <div class="auth-card" id="loginCard">
+      <div class="eyebrow">Bem-vindo de volta</div><h2>Entre na sua conta</h2><p class="sub">Acesse suas tarefas e continue de onde parou.</p>
+      <form id="loginForm">
+        <div class="field"><label for="loginEmail">E-mail</label><input id="loginEmail" type="email" placeholder="voce@exemplo.com" required value="teste@taskflow.com"></div>
+        <div class="field"><label for="loginPass">Senha</label><input id="loginPass" type="password" placeholder="Digite sua senha" required value="123456"></div>
+        <button class="btn btn-primary btn-block">Entrar</button>
+      </form>
+      <div class="switch">Ainda não tem uma conta? <button class="link" id="showRegister">Criar conta</button></div>
+      <p class="note">Demonstração: use os dados preenchidos ou crie uma conta fictícia.</p>
+    </div>
+    <div class="auth-card hidden" id="registerCard">
+      <div class="eyebrow">Comece gratuitamente</div><h2>Crie sua conta</h2><p class="sub">Preencha os dados para começar a organizar sua rotina.</p>
+      <form id="registerForm">
+        <div class="field"><label for="regName">Nome completo</label><input id="regName" placeholder="Seu nome" required></div>
+        <div class="field"><label for="regEmail">E-mail</label><input id="regEmail" type="email" placeholder="voce@exemplo.com" required></div>
+        <div class="field"><label for="regPass">Senha</label><input id="regPass" type="password" minlength="6" placeholder="Mínimo de 6 caracteres" required></div>
+        <button class="btn btn-primary btn-block">Criar conta</button>
+      </form>
+      <div class="switch">Já tem uma conta? <button class="link" id="showLogin">Fazer login</button></div>
+    </div>
+  </div>
+</section>
+
+<section id="application" class="app hidden">
+  <header class="topbar"><div class="logo">Task<span style="color:var(--primary)">Flow</span></div><div class="top-actions"><div class="user-chip"><div class="avatar" id="avatar">T</div><span id="userName">Thomas</span></div><button class="btn btn-outline" id="logout">Sair</button></div></header>
+  <main class="layout">
+    <div id="dashboard">
+      <div class="welcome"><div><div class="eyebrow">Seu espaço de trabalho</div><h1 id="greeting">Olá, Thomas 👋</h1><p>Acompanhe suas atividades e mantenha o foco no que importa.</p></div><button class="btn btn-primary" id="newTask">＋ Nova tarefa</button></div>
+      <div class="stats">
+        <div class="stat"><div class="stat-label">Total de tarefas</div><div class="stat-number" id="totalCount">4</div><div class="stat-foot">Tarefas cadastradas</div></div>
+        <div class="stat"><div class="stat-label">Em andamento</div><div class="stat-number" id="progressCount">1</div><div class="stat-foot">Atividades em progresso</div></div>
+        <div class="stat"><div class="stat-label">Concluídas</div><div class="stat-number" id="doneCount">1</div><div class="stat-foot">Atividades finalizadas</div></div>
+      </div>
+      <section class="panel"><div class="panel-head"><h2>Minhas tarefas</h2><div class="toolbar"><input class="search" id="searchTask" placeholder="Buscar tarefa..."><select class="search" id="filterStatus" aria-label="Filtrar por status"><option value="all">Todos os status</option><option>A fazer</option><option>Em andamento</option><option>Concluída</option></select></div></div><div id="taskList" class="task-list"></div></section>
+    </div>
+    <div id="taskEditor" class="hidden">
+      <button class="back" id="backDashboard">← Voltar para minhas tarefas</button>
+      <section class="panel form-panel"><div class="eyebrow" id="editorEyebrow">Nova atividade</div><h2 id="editorTitle" style="margin:4px 0 7px">Cadastrar tarefa</h2><p class="sub">Adicione as informações para organizar sua atividade.</p>
+        <form id="taskForm"><div class="form-grid">
+          <div class="field full"><label for="taskName">Título da tarefa</label><input id="taskName" placeholder="Ex.: Finalizar trabalho de POO2" required></div>
+          <div class="field full"><label for="taskDescription">Descrição</label><textarea id="taskDescription" placeholder="Descreva brevemente a tarefa..."></textarea></div>
+          <div class="field"><label for="taskDate">Prazo</label><input id="taskDate" type="date"></div>
+          <div class="field"><label for="taskPriority">Prioridade</label><select id="taskPriority"><option>Baixa</option><option selected>Média</option><option>Alta</option></select></div>
+          <div class="field full"><label for="taskStatus">Status</label><select id="taskStatus"><option>A fazer</option><option>Em andamento</option><option>Concluída</option></select></div>
+        </div><button class="btn btn-primary">Salvar tarefa</button> <button type="button" class="btn btn-outline" id="cancelEditor">Cancelar</button></form>
+      </section>
+    </div>
+  </main>
+</section>
+<div id="toast" class="toast hidden" role="status"></div>
+<script>
+let currentUser={name:"Thomas",email:"teste@taskflow.com"};
+let editingId=null;
+let tasks=[
+{id:1,title:"Finalizar trabalho de POO2",description:"Revisar os últimos detalhes do projeto da cantina.",date:"2026-11-20",priority:"Alta",status:"Em andamento"},
+{id:2,title:"Estudar para avaliação",description:"Revisar os conteúdos da disciplina.",date:"2026-11-22",priority:"Média",status:"A fazer"},
+{id:3,title:"Organizar atividades do TaskFlow",description:"Atualizar documentação e requisitos.",date:"2026-11-24",priority:"Média",status:"A fazer"},
+{id:4,title:"Enviar atividade anterior",description:"Conferir os arquivos antes da entrega.",date:"2026-11-15",priority:"Baixa",status:"Concluída"}
+];
+const $=id=>document.getElementById(id);
+function toast(msg){$("toast").textContent=msg;$("toast").classList.remove("hidden");setTimeout(()=>$("toast").classList.add("hidden"),2600)}
+function showAuth(which){$("auth").classList.remove("hidden");$("application").classList.add("hidden");$("loginCard").classList.toggle("hidden",which!=="login");$("registerCard").classList.toggle("hidden",which!=="register")}
+function enterApp(){ $("auth").classList.add("hidden");$("application").classList.remove("hidden");$("userName").textContent=currentUser.name;$("greeting").textContent="Olá, "+currentUser.name.split(" ")[0]+" 👋";$("avatar").textContent=currentUser.name.charAt(0).toUpperCase();showDashboard();renderTasks()}
+function showDashboard(){$("dashboard").classList.remove("hidden");$("taskEditor").classList.add("hidden");editingId=null}
+function openEditor(id=null){editingId=id;const t=tasks.find(x=>x.id===id);$("dashboard").classList.add("hidden");$("taskEditor").classList.remove("hidden");$("editorTitle").textContent=t?"Editar tarefa":"Cadastrar tarefa";$("editorEyebrow").textContent=t?"Atualize sua atividade":"Nova atividade";$("taskName").value=t?.title||"";$("taskDescription").value=t?.description||"";$("taskDate").value=t?.date||"";$("taskPriority").value=t?.priority||"Média";$("taskStatus").value=t?.status||"A fazer"}
+function renderTasks(){const query=$("searchTask").value.toLowerCase();const status=$("filterStatus").value;const filtered=tasks.filter(t=>(t.title+" "+t.description).toLowerCase().includes(query)&&(status==="all"||t.status===status));$("totalCount").textContent=tasks.length;$("progressCount").textContent=tasks.filter(t=>t.status==="Em andamento").length;$("doneCount").textContent=tasks.filter(t=>t.status==="Concluída").length;const list=$("taskList");if(!filtered.length){list.innerHTML='<div class="empty">Nenhuma tarefa encontrada.<br><small>Tente alterar a busca ou o filtro.</small></div>';return}list.innerHTML=filtered.map(t=>`<article class="task"><div class="task-main"><div class="task-title">${escapeHtml(t.title)}</div><div class="task-desc">${escapeHtml(t.description||"Sem descrição")}</div><div class="task-meta"><span class="pill ${t.status==="Concluída"?"done":t.status==="Em andamento"?"progress":"todo"}">${t.status}</span><span class="pill ${t.priority.toLowerCase()}">${t.priority}</span><span class="pill">Prazo: ${t.date?formatDate(t.date):"Não definido"}</span></div></div><button class="icon-btn" title="Editar tarefa" aria-label="Editar ${escapeHtml(t.title)}" onclick="openEditor(${t.id})">✎</button></article>`).join("")}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function formatDate(d){return new Date(d+"T12:00:00").toLocaleDateString("pt-BR")}
+$("showRegister").onclick=()=>showAuth("register");$("showLogin").onclick=()=>showAuth("login");
+$("loginForm").onsubmit=e=>{e.preventDefault();if(!$("loginEmail").value.trim()||!$("loginPass").value){toast("Informe e-mail e senha.");return}currentUser.email=$("loginEmail").value;enterApp();toast("Login realizado no protótipo.")};
+$("registerForm").onsubmit=e=>{e.preventDefault();currentUser={name:$("regName").value.trim(),email:$("regEmail").value.trim()};enterApp();toast("Conta criada no protótipo.")};
+$("logout").onclick=()=>showAuth("login");$("newTask").onclick=()=>openEditor();$("backDashboard").onclick=showDashboard;$("cancelEditor").onclick=showDashboard;
+$("taskForm").onsubmit=e=>{e.preventDefault();const data={title:$("taskName").value.trim(),description:$("taskDescription").value.trim(),date:$("taskDate").value,priority:$("taskPriority").value,status:$("taskStatus").value};if(editingId){tasks=tasks.map(t=>t.id===editingId?{...t,...data}:t);toast("Tarefa atualizada com sucesso.")}else{tasks.unshift({id:Date.now(),...data});toast("Tarefa cadastrada com sucesso.")}showDashboard();renderTasks();$("taskForm").reset()};
+$("searchTask").oninput=renderTasks;$("filterStatus").onchange=renderTasks;
+</script>
+</body>
+</html>
