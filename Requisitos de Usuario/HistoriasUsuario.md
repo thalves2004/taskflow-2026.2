@@ -7,13 +7,14 @@
 
 **Prioridade:** Alta.
 
-**Requisitos relacionados:** RF01, RNF01.
+**Requisitos relacionados:** RF01, RNF01, RNF03.
 
 **Critérios de aceitação:**
 1. O sistema deve permitir que o visitante informe os dados necessários para criar uma conta.
 2. O sistema deve validar os dados informados.
-3. Quando os dados forem válidos, o sistema deve criar a conta.
-4. Após o cadastro, o usuário deve receber uma confirmação de que a conta foi criada.
+3. O sistema deve impedir a conclusão do cadastro quando os dados forem inválidos.
+4. Quando os dados forem válidos, o sistema deve criar a conta.
+5. Após o cadastro, o sistema deve informar se a conta foi criada com sucesso.
 
 ## HU02 – Login
 
@@ -35,13 +36,15 @@
 
 **Prioridade:** Alta.
 
-**Requisitos relacionados:** RF03, RNF01, RNF02, RNF05.
+**Requisitos relacionados:** RF03, RNF01, RNF02, RNF03, RNF05.
 
 **Critérios de aceitação:**
 1. O sistema deve permitir o cadastro de uma nova tarefa.
-2. O sistema deve validar os campos obrigatórios.
-3. Após o cadastro, a tarefa deve aparecer na lista de tarefas do usuário.
-4. Os dados da tarefa devem ser armazenados corretamente.
+2. O sistema deve permitir informar título, descrição, prazo, prioridade e status.
+3. O sistema deve validar os campos obrigatórios.
+4. Após o cadastro, a tarefa deve aparecer na lista de tarefas do usuário.
+5. Os dados da tarefa devem ser armazenados corretamente.
+6. O cadastro deve ser realizado em até 3 segundos em condições normais de uso.
 
 ## HU04 – Editar tarefas
 
@@ -49,13 +52,15 @@
 
 **Prioridade:** Alta.
 
-**Requisitos relacionados:** RF04, RNF01, RNF05.
+**Requisitos relacionados:** RF04, RNF01, RNF03, RNF05.
 
 **Critérios de aceitação:**
-1. O sistema deve permitir selecionar uma tarefa existente.
+1. O sistema deve permitir selecionar uma tarefa existente do usuário.
 2. O sistema deve permitir alterar as informações da tarefa.
-3. O sistema deve salvar as alterações realizadas.
-4. As informações atualizadas devem aparecer na lista de tarefas.
+3. O sistema deve permitir atualizar título, descrição, prazo, prioridade e status.
+4. O sistema deve salvar as alterações realizadas.
+5. As informações atualizadas devem aparecer na lista de tarefas.
+6. O usuário não deve conseguir editar tarefas pertencentes a outras contas.
 
 ## HU05 – Excluir tarefas
 
@@ -63,7 +68,7 @@
 
 **Prioridade:** Média.
 
-**Requisitos relacionados:** RF05, RNF03, RNF05.
+**Requisitos relacionados:** RF05, RNF01, RNF03, RNF05.
 
 **Critérios de aceitação:**
 1. O sistema deve permitir selecionar uma tarefa para exclusão.
@@ -77,12 +82,14 @@
 
 **Prioridade:** Alta.
 
-**Requisitos relacionados:** RF06.
+**Requisitos relacionados:** RF06, RNF03, RNF05.
 
 **Critérios de aceitação:**
 1. O sistema deve oferecer as opções Alta, Média e Baixa.
 2. O usuário deve conseguir selecionar uma prioridade para a tarefa.
-3. A prioridade selecionada deve aparecer na tarefa.
+3. A prioridade selecionada deve ser armazenada corretamente.
+4. A prioridade atualizada deve aparecer nas informações da tarefa.
+5. O usuário somente poderá alterar a prioridade de suas próprias tarefas.
 
 ## HU07 – Definir prazos
 
@@ -90,12 +97,13 @@
 
 **Prioridade:** Alta.
 
-**Requisitos relacionados:** RF07.
+**Requisitos relacionados:** RF07, RNF03, RNF05.
 
 **Critérios de aceitação:**
 1. O sistema deve permitir informar uma data para a tarefa.
 2. O sistema deve armazenar o prazo informado.
 3. O prazo deve aparecer nas informações da tarefa.
+4. O usuário somente poderá alterar o prazo de suas próprias tarefas.
 
 ## HU08 – Atualizar status
 
@@ -103,12 +111,14 @@
 
 **Prioridade:** Alta.
 
-**Requisitos relacionados:** RF08.
+**Requisitos relacionados:** RF08, RNF03, RNF05.
 
 **Critérios de aceitação:**
 1. O sistema deve oferecer os status A fazer, Em andamento e Concluída.
 2. O usuário deve conseguir alterar o status de uma tarefa.
-3. O status atualizado deve aparecer na tarefa.
+3. O status atualizado deve ser armazenado corretamente.
+4. O status atualizado deve aparecer na tarefa.
+5. O usuário somente poderá alterar o status de suas próprias tarefas.
 
 ## HU09 – Consultar tarefas
 
@@ -116,13 +126,13 @@
 
 **Prioridade:** Alta.
 
-**Requisitos relacionados:** RF09, RNF01, RNF02, RNF03.
+**Requisitos relacionados:** RF09, RNF01, RNF02, RNF03, RNF05.
 
 **Critérios de aceitação:**
 1. O sistema deve apresentar a lista de tarefas do usuário.
 2. A consulta deve exibir as principais informações das tarefas.
 3. O sistema deve apresentar os dados atualizados.
-4. A consulta deve ser realizada em até 3 segundos.
+4. A consulta deve ser realizada em até 3 segundos em condições normais de uso.
 5. O usuário deve visualizar somente suas próprias tarefas.
 
 ## HU10 – Pesquisar e filtrar tarefas
@@ -139,3 +149,7 @@
 3. O sistema deve permitir filtrar tarefas conforme os filtros disponíveis.
 4. Quando não houver resultados, o sistema deve informar ao usuário.
 5. A pesquisa e a filtragem devem considerar somente as tarefas do próprio usuário.
+
+## Considerações finais
+
+As histórias de usuário descrevem as principais necessidades dos usuários do TaskFlow e apresentam critérios de aceitação que permitem verificar se cada funcionalidade foi implementada corretamente.
