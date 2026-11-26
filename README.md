@@ -47,3 +47,19 @@ Ano: 2026
 
 Semestre: 2º semestre
 
+
+## Apresentação do Projeto
+
+**Vídeo de apresentação:**
+
+[Assistir à apresentação do TaskFlow](https://drive.google.com/file/d/1ODqPGNxU2m95gF6sAuKfD0q-kPmOR3-j/view?usp=drive_link)
+
+**Protótipo online:**
+
+[ acessar o TaskFlow](https://thalves2004.github.io/taskflow-2026.2/Prototipacao/index.html)
+
+**Repositório:**
+
+https://github.com/thalves2004/taskflow-2026.2
+
+
